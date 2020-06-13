@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: iconatron
+  name: iconatron
+  namespace: iconatron
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: iconatron

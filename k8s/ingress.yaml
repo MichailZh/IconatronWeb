@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: iconatron-com-dns
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    prometheus.io/probe: "true"
+  labels:
+    app: iconatron
+  name: iconatron
+  namespace: iconatron
+spec:
+  rules:
+    - host: iconatron.com
+      http:
+        paths:
+          - backend:
+              serviceName: iconatron
+              servicePort: 80
+            path: /
+    - host: www.iconatron.com
+      http:
+        paths:
+          - backend:
+              serviceName: iconatron
+              servicePort: 80
+            path: /
+  tls:
+  - hosts:
+    - iconatron.com
+    - www.iconatron.com
+    secretName: iconatron-com-tls
